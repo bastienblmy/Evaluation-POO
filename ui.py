@@ -107,3 +107,23 @@ def demander_reservation(clients, vehicules, data_manager):
     print("============================================================")
 
     return reservation   
+
+
+
+def afficher_reservations(reservations):
+    print("============================================================")
+    print("LISTE DES RÉSERVATIONS")
+    print("============================================================")
+    for r in reservations:
+        print(f"{r.id_reservation} | Client: {r.id_client} | Véhicule: {r.id_vehicule} | {r.date_depart} -> {r.date_retour} | Forfait: {r.forfait_km} | Coût estimé: {r.cout_estime:.2f}€")
+    print("============================================================")
+
+
+
+def afficher_reservations_client(reservations, id_client):
+    print("============================================================")
+    print(f"RÉSERVATIONS DU CLIENT {id_client}")
+    print("============================================================")
+    for r in reservations:
+        print(f"{r.id_reservation} | Client: {r.id_client} | Véhicule: {r.id_vehicule} | {r.date_depart} -> {r.date_retour} | Forfait: {r.forfait_km} | Coût estimé: {r.cout_estime:.2f}€")
+    print("============================================================")    

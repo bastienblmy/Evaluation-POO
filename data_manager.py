@@ -5,25 +5,44 @@ from models.reservation import Reservation
 
 
 
+def _lire_json(nom_fichier, valeur_par_defaut):
+    try:
+        with open(nom_fichier, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"Erreur : fichier introuvable ({nom_fichier}).")
+        return valeur_par_defaut
+    except json.JSONDecodeError:
+        print(f"Erreur : fichier JSON invalide ({nom_fichier}).")
+        return valeur_par_defaut
+
+
+
+def _ecrire_json(nom_fichier, data):
+    try:
+        with open(nom_fichier, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except OSError:
+        print(f"Erreur : impossible d'écrire dans le fichier ({nom_fichier}).")
+    
+
+
 def charger_clients():
-    with open("clients.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+    data = _lire_json("clients.json", [])
     return [Client.from_dict(d) for d in data]
 
 
 
 def charger_vehicules():
-    with open("vehicules.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+    data = _lire_json("vehicules.json", [])
     return [Vehicule.from_dict(d) for d in data]
 
 
 
 def charger_reservations():
-    with open("reservations.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-
+    data = _lire_json("reservations.json", [])
     reservations = []
+
     for d in data:
         r = Reservation(
             d.get("id_reservation", ""),
@@ -44,9 +63,7 @@ def charger_reservations():
 
 
 def sauvegarder_reservation(reservation):
-    with open("reservations.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-
+    data = _lire_json("reservations.json", [])
     data.append({
         "id_reservation": reservation.id_reservation,
         "id_client": reservation.id_client,
@@ -59,8 +76,7 @@ def sauvegarder_reservation(reservation):
         "cout_estime": reservation.cout_estime,
     })
 
-    with open("reservations.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    _ecrire_json("reservations.json", data)
 
 
 

@@ -1,9 +1,15 @@
 from models.tarifs import TarifsManager
 from models.reservation import Reservation
+import os
+
+
+def nettoyer_terminal():
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 
 def afficher_menu():
+    nettoyer_terminal()
     print("============================================================")
     print("SYSTÈME DE LOCATION DE VÉHICULES")
     print("============================================================")
@@ -20,6 +26,7 @@ def demander_choix():
 
 
 def afficher_clients(clients):
+    nettoyer_terminal()
     print("============================================================")
     print("LISTE DES CLIENTS")
     print("============================================================")
@@ -30,6 +37,7 @@ def afficher_clients(clients):
 
 
 def afficher_vehicules(vehicules):
+    nettoyer_terminal()
     print("============================================================")
     print("LISTE DES VÉHICULES")
     print("============================================================")
@@ -40,6 +48,7 @@ def afficher_vehicules(vehicules):
 
 
 def demander_reservation(clients, vehicules, data_manager):
+    nettoyer_terminal()
     print("============================================================")
     print("CRÉER UNE NOUVELLE RÉSERVATION")
     print("============================================================")
@@ -111,6 +120,7 @@ def demander_reservation(clients, vehicules, data_manager):
 
 
 def afficher_reservations(reservations):
+    nettoyer_terminal()
     print("============================================================")
     print("LISTE DES RÉSERVATIONS")
     print("============================================================")
@@ -121,6 +131,7 @@ def afficher_reservations(reservations):
 
 
 def afficher_reservations_client(reservations, id_client):
+    nettoyer_terminal()
     print("============================================================")
     print(f"RÉSERVATIONS DU CLIENT {id_client}")
     print("============================================================")
